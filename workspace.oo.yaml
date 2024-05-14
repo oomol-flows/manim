@@ -1,0 +1,15 @@
+name: Manim
+container:
+  scripts:
+    # https://docs.manim.community/en/stable/installation/linux.html
+    bootstrap: |
+      #!/bin/bash
+      set -e
+
+      sudo apt-get update
+      sudo apt-get install -y libcairo2-dev pkg-config python3-dev
+      sudo apt-get install -y ffmpeg libsdl-pango-dev
+
+      pip install --upgrade pip
+      pip install pycairo
+      pip install manim
