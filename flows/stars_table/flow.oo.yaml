@@ -1,0 +1,64 @@
+nodes:
+  - task: excel::csv_reader
+    node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
+    inputs_from:
+      - handle: file
+        cache:
+          initial_value: /oomol-storage/stars/athyg_24_reduced_m10.csv
+    title: 国际星表
+  - task: ../../blocks/typescript_lib_23a7d5/block.oo.yaml
+    node_id: a7d54fe9-a09b-481a-9910-d4b38e8611ff
+    inputs_from:
+      - handle: in
+        cache:
+          initial_value:
+            - ""
+      - handle: internationalRows
+        cache:
+          initial_value:
+            - ""
+        from_node:
+          - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
+            output_handle: rows
+      - handle: fields
+        from_node:
+          - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
+            output_handle: fields
+      - handle: chinaRows
+        from_node:
+          - node_id: 8a565ca6-c9e1-4cce-b4aa-4ff369474eff
+            output_handle: rows
+      - handle: chinaName
+        cache:
+          initial_value: cnn
+    title: 插入恒星中国名
+  - task: excel::csv_reader
+    node_id: 8a565ca6-c9e1-4cce-b4aa-4ff369474eff
+    inputs_from:
+      - handle: file
+        cache:
+          initial_value: /oomol-storage/stars/中西星名对照表.xlsx
+    title: 中国星表
+  - task: excel::csv_writer
+    node_id: 3d9a966c-6d5d-48ed-a4d5-0c97db26a024
+    inputs_from:
+      - handle: rows
+        from_node:
+          - node_id: a7d54fe9-a09b-481a-9910-d4b38e8611ff
+            output_handle: rows
+      - handle: fields
+        from_node:
+          - node_id: a7d54fe9-a09b-481a-9910-d4b38e8611ff
+            output_handle: fields
+      - handle: output_folder
+        cache:
+          initial_value: /oomol-storage/stars
+      - handle: file_name
+        cache:
+          initial_value: target.csv
+      - handle: create_folder_if_need
+        cache:
+          initial_value: true
+      - handle: when_file_exists
+        cache:
+          initial_value: override

@@ -1,0 +1,57 @@
+type: task_block
+title: 插入恒星中国名
+icon: https://static.oomol.com/icons/typescript.png
+executor:
+  name: node_executor
+  entry: index.ts
+inputs_def:
+  - handle: chinaName
+    serialize:
+      serializer: json
+      json_schema:
+        type: string
+  - handle: chinaRows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: object
+          properties:
+            {}
+  - handle: internationalRows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: object
+          properties:
+            {}
+    cache:
+      initial_value:
+        - ""
+  - handle: fields
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: string
+outputs_def:
+  - handle: rows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        itemType:
+          type: object
+  - handle: fields
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        itemType:
+          type: string
+ui:
+  default_width: 248
