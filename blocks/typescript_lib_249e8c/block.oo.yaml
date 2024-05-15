@@ -1,0 +1,102 @@
+type: task_block
+title: typescript_lib_249e8c
+icon: https://static.oomol.com/icons/typescript.png
+executor:
+  name: node_executor
+  entry: index.ts
+inputs_def:
+  - handle: rows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type:
+            - string
+            - number
+            - integer
+            - boolean
+            - object
+            - array
+          ui:widget: any
+    cache:
+      initial_value:
+        - ""
+  - handle: 模式
+    serialize:
+      serializer: json
+      json_schema:
+        type: string
+        enum:
+          - 平面投影
+          - 球面投影
+  - handle: x
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+  - handle: y
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+  - handle: z
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+outputs_def:
+  - handle: rows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: object
+          properties:
+            cnn:
+              type: string
+            mag:
+              type: number
+            x:
+              type: number
+            y:
+              type: number
+  - handle: isDegree
+    serialize:
+      serializer: json
+      json_schema:
+        type: boolean

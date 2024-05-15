@@ -4,6 +4,18 @@ https://zhuanlan.zhihu.com/p/557993676
 现代星表
 https://www.astronexus.com/hyg
 
+### 星表坐标
+
+恒星的坐标 \( x0 \)、\( y0 \)、\( z0 \) 是以卡迪斯坐标系（Cartesian coordinates）表示的，它们提供了一种将恒星在三维空间中的位置以直角坐标的形式表达的方法。这些坐标的方向定义如下：
+
+- \( x \) 轴指向赤经（Right Ascension, RA）0小时，赤纬（Declination, Dec）0度的方向。
+- \( y \) 轴指向赤经6小时，赤纬0度的方向。
+- \( z \) 轴指向赤纬90度的方向。
+
+这些坐标的单位是秒差距（parsecs），秒差距是一种天文学中常用的距离单位，用于测量恒星距离。1秒差距大约等于3.262光年。
+
+### 参数详情
+
 1. `tyc`: The Tycho-2 ID, with leading zeros removed from the first and second portion (for consistency with Gaia linking tables).
    - 泰乔-2星表的编号，去掉了前两位的前导零。
 

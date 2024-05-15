@@ -16,21 +16,29 @@ inputs_def:
       json_schema:
         type: array
         items:
-          type: object
-          properties:
-            {}
+          type:
+            - string
+            - number
+            - integer
+            - boolean
+            - object
+            - array
+          ui:widget: any
   - handle: internationalRows
     serialize:
       serializer: json
       json_schema:
         type: array
         items:
-          type: object
-          properties:
-            {}
-    cache:
-      initial_value:
-        - ""
+          type:
+            - string
+            - number
+            - integer
+            - boolean
+            - object
+            - array
+          ui:widget: any
+    cache: true
   - handle: fields
     serialize:
       serializer: json

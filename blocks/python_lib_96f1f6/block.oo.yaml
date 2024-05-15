@@ -1,0 +1,54 @@
+type: task_block
+title: python_lib_96f1f6
+icon: https://static.oomol.com/icons/python.png
+executor:
+  name: python_executor
+  entry: __init__.py
+inputs_def:
+  - handle: rows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: object
+          properties:
+            cnn:
+              type: string
+            mag:
+              type: number
+            x:
+              type: number
+            y:
+              type: number
+  - handle: isDegree
+    serialize:
+      serializer: json
+      json_schema:
+        type: boolean
+  - handle: 视野宽度（度）
+    serialize:
+      serializer: json
+      json_schema:
+        type: number
+        exclusiveMinimum: 0
+        exclusiveMaximum: 180
+  - handle: 视野高度（度）
+    serialize:
+      serializer: json
+      json_schema:
+        type: number
+        exclusiveMinimum: 0
+        exclusiveMaximum: 180
+  - handle: 宽度像素（长轴）
+    serialize:
+      serializer: json
+      json_schema:
+        type: integer
+        exclusiveMinimum: 0
+outputs_def:
+  - handle: image
+    serialize:
+      serializer: json
+      json_schema:
+        type: string

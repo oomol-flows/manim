@@ -1,0 +1,72 @@
+type: task_block
+title: typescript_lib_2581ba
+icon: https://static.oomol.com/icons/typescript.png
+executor:
+  name: node_executor
+  entry: index.ts
+inputs_def:
+  - handle: 赤经
+    serialize:
+      serializer: json
+      json_schema:
+        type: number
+        exclusiveMaximum: 360
+        minimum: 0
+    cache:
+      initial_value: 0
+  - handle: 赤纬
+    serialize:
+      serializer: json
+      json_schema:
+        type: number
+        maximum: 90
+        minimum: -90
+outputs_def:
+  - handle: x
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+  - handle: y
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number
+  - handle: z
+    serialize:
+      serializer: json
+      json_schema:
+        type: object
+        required:
+          - x
+          - y
+          - z
+        properties:
+          x:
+            type: number
+          y:
+            type: number
+          z:
+            type: number

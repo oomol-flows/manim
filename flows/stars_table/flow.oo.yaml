@@ -13,32 +13,22 @@ nodes:
         cache:
           initial_value:
             - ""
-      - handle: internationalRows
-        cache:
-          initial_value:
-            - ""
-        from_node:
-          - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
-            output_handle: rows
       - handle: fields
         from_node:
           - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
             output_handle: fields
-      - handle: chinaRows
-        from_node:
-          - node_id: 8a565ca6-c9e1-4cce-b4aa-4ff369474eff
-            output_handle: rows
       - handle: chinaName
         cache:
           initial_value: cnn
+      - handle: internationalRows
+        from_node:
+          - node_id: 1eadbb23-32e6-4c7d-8304-5b6389398c88
+            output_handle: out
+      - handle: chinaRows
+        from_node:
+          - node_id: fb918a17-31e5-4e5f-9d2f-cefceece1f05
+            output_handle: rows
     title: 插入恒星中国名
-  - task: excel::csv_reader
-    node_id: 8a565ca6-c9e1-4cce-b4aa-4ff369474eff
-    inputs_from:
-      - handle: file
-        cache:
-          initial_value: /oomol-storage/stars/中西星名对照表.xlsx
-    title: 中国星表
   - task: excel::csv_writer
     node_id: 3d9a966c-6d5d-48ed-a4d5-0c97db26a024
     inputs_from:
@@ -55,10 +45,34 @@ nodes:
           initial_value: /oomol-storage/stars
       - handle: file_name
         cache:
-          initial_value: target.csv
+          initial_value: 中国星表.csv
       - handle: create_folder_if_need
         cache:
           initial_value: true
       - handle: when_file_exists
         cache:
           initial_value: override
+  - task: language::javascript_script
+    node_id: 1eadbb23-32e6-4c7d-8304-5b6389398c88
+    inputs_from:
+      - handle: _OOMOL_OPTIONS
+        cache:
+          initial_value:
+            content: |
+              export default function(inputs, context) {
+                const rows = inputs["in"].filter(row => {
+                  return !!row["hip"];
+                });
+                context.output(rows, "out", true);
+              }
+      - handle: in
+        from_node:
+          - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
+            output_handle: rows
+  - task: excel::excel_reader
+    node_id: fb918a17-31e5-4e5f-9d2f-cefceece1f05
+    inputs_from:
+      - handle: file
+        cache:
+          initial_value: /oomol-storage/stars/中西星名对照表.xlsx
+    title: 中国星表

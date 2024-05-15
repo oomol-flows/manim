@@ -7,7 +7,7 @@ container:
       set -e
 
       sudo apt-get update
-      sudo apt-get install -y libcairo2-dev pkg-config python3-dev
+      sudo apt-get install -y build-essential libcairo2-dev pkg-config python3-dev
       sudo apt-get install -y ffmpeg libsdl-pango-dev
 
       pip install --upgrade pip
