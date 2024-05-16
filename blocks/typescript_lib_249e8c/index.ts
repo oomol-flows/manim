@@ -16,9 +16,9 @@ type Outputs = Readonly<{
 
 type Row = {
   cnn: string;
-  x0: number; // 轴指向春分点
-  y0: number; // 轴指向赤经 6 小时（赤纬 0）
-  z0: number; // 轴指向北天极
+  x0: string; // 轴指向春分点
+  y0: string; // 轴指向赤经 6 小时（赤纬 0）
+  z0: string; // 轴指向北天极
   mag: string; // 视星等
 };
 
@@ -44,7 +44,9 @@ export default async function(inputs: Inputs, context: Context) {
 
   for (const row of inputs.rows) {
     const p = transformCoordinate(row, inputs);
-    if (p.z <= 0) {
+
+    if (Number.isNaN(p.x) || Number.isNaN(p.y) || Number.isNaN(p.y)) {
+      // 原始数据可能出现空字符串，这将解析成 NaN
       continue;
     }
     let x = 0.0;
@@ -52,15 +54,28 @@ export default async function(inputs: Inputs, context: Context) {
 
     switch (mode) {
       case "平面投影": {
+        if (p.z < 0.0) {
+          continue;
+        }
         x = p.x / p.z;
         y = p.y / p.z;
         break;
       }
       case "球面投影": {
-        const rx = Math.sqrt(p.x ** 2 + p.z ** 2);
-        const ry = Math.sqrt(p.y ** 2 + p.z ** 2);
-        x = Math.asin(p.x / rx) * 180 / Math.PI;
-        y = Math.asin(p.y / ry) * 180 / Math.PI;
+        // 在地平投影上的极坐标角度
+        const theta = Math.atan2(p.y, p.x);
+        // 在地平投影上向量的长度
+        const pr = Math.sqrt(p.x ** 2 + p.y ** 2);
+        // 恒星的距离
+        const distance = Math.sqrt(p.x ** 2 + p.y ** 2 + p.z ** 2);
+        
+        let r = Math.asin(pr / distance);
+
+        if (p.z < 0) {
+          r = Math.PI - r;
+        }
+        x = theta * 180 / Math.PI;
+        y = r * 180 / Math.PI;
         break;
       }
     }
@@ -77,8 +92,12 @@ export default async function(inputs: Inputs, context: Context) {
   context.done();
 };
 
-function transformCoordinate({ x0, y0, z0 }: Row, { x, y, z }: Inputs): Vector {
-  const starVector: Vector = { x: x0, y: y0, z: z0 };
+function transformCoordinate(row: Row, { x, y, z }: Inputs): Vector {
+  const starVector: Vector = {
+    x: Number.parseFloat(row["x0"]),
+    y: Number.parseFloat(row["y0"]),
+    z: Number.parseFloat(row["z0"]),
+  };
   const toVector: Vector = {
     x: dotProduct(starVector, x),
     y: dotProduct(starVector, y),
@@ -88,5 +107,5 @@ function transformCoordinate({ x0, y0, z0 }: Row, { x, y, z }: Inputs): Vector {
 }
 
 function dotProduct(v1: Vector, v2: Vector): number {
-  return v1.x * v2.x + v1.y * v2.y + v2.z * v2.z;
+  return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }

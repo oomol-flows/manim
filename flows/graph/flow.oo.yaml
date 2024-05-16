@@ -58,10 +58,10 @@ nodes:
     inputs_from:
       - handle: 赤经
         cache:
-          initial_value: 0
+          initial_value: 144
       - handle: 赤纬
         cache:
-          initial_value: 90
+          initial_value: 30
     title: 观测者坐标系
   - task: ../../blocks/python_lib_96f1f6/block.oo.yaml
     node_id: f1f6a5e8-f6e6-4dfd-bc3b-30fc4ac35c74
