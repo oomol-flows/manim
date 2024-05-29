@@ -1,6 +1,3 @@
-import type { VocanaSDK } from "@vocana/sdk";
-
-type Context = VocanaSDK<Inputs, Outputs>;
 type Inputs = Readonly<{ 
   chinaName: string;
   chinaRows: Record<string, unknown>[];
@@ -13,7 +10,7 @@ type Outputs = Readonly<{
   fields: string[];
 }>;
 
-export default async function(inputs: Inputs, context: Context) {
+export function insertCnStarNames(inputs: Inputs): Outputs {
   const { chinaRows, internationalRows } = inputs;
   const chinaNameKey = inputs.chinaName;
   const hip2ChinaNames = new Map<string, string>();
@@ -43,7 +40,5 @@ export default async function(inputs: Inputs, context: Context) {
     console.log("chinaName", hip, chinaName);
     rows.push({ ...row, [chinaNameKey]: chinaName });
   }
-  context.output(fields, "fields", false);
-  context.output(rows, "rows", false);
-  context.done();
+  return { fields, rows };
 };

@@ -3,22 +3,23 @@ import base64
 import math
 
 from PIL import Image, ImageDraw
-from vocana import VocanaSDK as Context
 
-def main(inputs: dict, context: Context):
+def paint_image(inputs: dict):
   if inputs["isDegree"]:
-    image = draw_sphere(inputs, context)
+    image = draw_sphere(inputs)
   else:
-    image = draw_plant(inputs, context)
+    image = draw_plant(inputs)
 
   image_io = io.BytesIO()
   image.save(image_io, format="PNG")
   image_bytes = image_io.getvalue()
   image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
-  context.output(image_base64, "image", True)
+  return {
+    "image": image_base64
+  }
 
-def draw_sphere(inputs: dict, context: Context):
+def draw_sphere(inputs: dict):
   width_degrees = inputs["视野宽度（度）"]
   height_degrees = inputs["视野高度（度）"]
   pixel = inputs["宽度像素（长轴）"]
@@ -57,7 +58,7 @@ def draw_sphere(inputs: dict, context: Context):
 
   return image
 
-def draw_plant(inputs: dict, context: Context):
+def draw_plant(inputs: dict):
   width, height, pix_width, pix_height, pix_rate = view(inputs)
   image = Image.new("RGB", (pix_width, pix_height), (0, 0, 0))
   draw = ImageDraw.Draw(image)

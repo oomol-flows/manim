@@ -1,27 +1,35 @@
 type: task_block
-title: typescript_lib_2581ba
+title: 转化为顶视坐标
 icon: https://static.oomol.com/icons/typescript.png
-executor:
-  name: node_executor
-  entry: index.ts
+options:
+  mode: request
+  applet: ../../package/applets/javascript
+  function: to2DPoints
 inputs_def:
-  - handle: 赤经
+  - handle: rows
     serialize:
       serializer: json
       json_schema:
-        type: number
-        exclusiveMaximum: 360
-        minimum: 0
-    cache:
-      initial_value: 0
-  - handle: 赤纬
+        type: array
+        items:
+          type:
+            - string
+            - number
+            - integer
+            - boolean
+            - object
+            - array
+          ui:widget: any
+    value:
+        - ""
+  - handle: 模式
     serialize:
       serializer: json
       json_schema:
-        type: number
-        maximum: 90
-        minimum: -90
-outputs_def:
+        type: string
+        enum:
+          - 平面投影
+          - 球面投影
   - handle: x
     serialize:
       serializer: json
@@ -70,3 +78,25 @@ outputs_def:
             type: number
           z:
             type: number
+outputs_def:
+  - handle: rows
+    serialize:
+      serializer: json
+      json_schema:
+        type: array
+        items:
+          type: object
+          properties:
+            cnn:
+              type: string
+            mag:
+              type: number
+            x:
+              type: number
+            y:
+              type: number
+  - handle: isDegree
+    serialize:
+      serializer: json
+      json_schema:
+        type: boolean

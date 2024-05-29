@@ -1,9 +1,10 @@
 type: task_block
 title: 插入恒星中国名
 icon: https://static.oomol.com/icons/typescript.png
-executor:
-  name: node_executor
-  entry: index.ts
+options:
+  mode: request
+  applet: ../../package/applets/javascript
+  function: insertCnStarNames
 inputs_def:
   - handle: chinaName
     serialize:

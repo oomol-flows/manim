@@ -3,23 +3,20 @@ nodes:
     node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
     inputs_from:
       - handle: file
-        cache:
-          initial_value: /oomol-storage/stars/athyg_24_reduced_m10.csv
+        value: /oomol-storage/stars/athyg_24_reduced_m10.csv
+      - handle: disable_field_names
+        value: false
     title: 国际星表
-  - task: ../../blocks/typescript_lib_23a7d5/block.oo.yaml
+  - task: ../../blocks/insert_cn_name/block.oo.yaml
     node_id: a7d54fe9-a09b-481a-9910-d4b38e8611ff
     inputs_from:
       - handle: in
-        cache:
-          initial_value:
-            - ""
       - handle: fields
         from_node:
           - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
             output_handle: fields
       - handle: chinaName
-        cache:
-          initial_value: cnn
+        value: cnn
       - handle: internationalRows
         from_node:
           - node_id: 1eadbb23-32e6-4c7d-8304-5b6389398c88
@@ -41,30 +38,25 @@ nodes:
           - node_id: a7d54fe9-a09b-481a-9910-d4b38e8611ff
             output_handle: fields
       - handle: output_folder
-        cache:
-          initial_value: /oomol-storage/stars
+        value: /oomol-storage/stars
       - handle: file_name
-        cache:
-          initial_value: 中国星表.csv
+        value: 中国星表.csv
       - handle: create_folder_if_need
-        cache:
-          initial_value: true
+        value: true
       - handle: when_file_exists
-        cache:
-          initial_value: override
+        value: override
   - task: language::javascript_script
     node_id: 1eadbb23-32e6-4c7d-8304-5b6389398c88
     inputs_from:
       - handle: _OOMOL_OPTIONS
-        cache:
-          initial_value:
-            content: |
-              export default function(inputs, context) {
-                const rows = inputs["in"].filter(row => {
-                  return !!row["hip"];
-                });
-                context.output(rows, "out", true);
-              }
+        value:
+          content: |
+            export default function(inputs, context) {
+              const rows = inputs["in"].filter(row => {
+                return !!row["hip"];
+              });
+              context.output(rows, "out", true);
+            }
       - handle: in
         from_node:
           - node_id: b7fa4523-62e4-4906-b874-1536392cf7b8
@@ -73,6 +65,7 @@ nodes:
     node_id: fb918a17-31e5-4e5f-9d2f-cefceece1f05
     inputs_from:
       - handle: file
-        cache:
-          initial_value: /oomol-storage/stars/中西星名对照表.xlsx
+        value: /oomol-storage/stars/中西星名对照表.xlsx
+      - handle: disable_field_names
+        value: false
     title: 中国星表

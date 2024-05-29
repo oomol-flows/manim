@@ -3,100 +3,59 @@ nodes:
     node_id: 860a29d9-c8ba-478b-8496-30329094aacd
     inputs_from:
       - handle: file
-        cache:
-          initial_value: /oomol-storage/stars/中国星表.csv
+        value: /oomol-storage/stars/中国星表.csv
       - handle: disable_field_names
-        cache:
-          initial_value: false
+        value: false
     title: 读取星表数据
-  - task: ../../blocks/typescript_lib_249e8c/block.oo.yaml
-    node_id: 9e8c1e3c-4ac1-494a-86b6-628daf53c461
-    inputs_from:
-      - handle: in
-        cache:
-          initial_value: 0
-      - handle: rows
-        cache:
-          initial_value:
-            - ""
-        from_node:
-          - node_id: 860a29d9-c8ba-478b-8496-30329094aacd
-            output_handle: rows
-      - handle: z
-        cache:
-          initial_value:
-            z: 0.71
-            y: 0.71
-            x: 0
-        from_node:
-          - node_id: 81bab5bc-5750-4cc9-95dd-2b5307d8eba6
-            output_handle: z
-      - handle: x
-        cache:
-          initial_value:
-            z: 0
-            y: 0
-            x: 1
-        from_node:
-          - node_id: 81bab5bc-5750-4cc9-95dd-2b5307d8eba6
-            output_handle: x
-      - handle: y
-        cache:
-          initial_value:
-            z: -0.71
-            y: 0.71
-            x: 0
-        from_node:
-          - node_id: 81bab5bc-5750-4cc9-95dd-2b5307d8eba6
-            output_handle: y
-      - handle: 模式
-        cache:
-          initial_value: 球面投影
-    title: 转化为顶视坐标
-  - task: ../../blocks/typescript_lib_2581ba/block.oo.yaml
-    node_id: 81bab5bc-5750-4cc9-95dd-2b5307d8eba6
-    inputs_from:
-      - handle: 赤经
-        cache:
-          initial_value: 144
-      - handle: 赤纬
-        cache:
-          initial_value: 30
-    title: 观测者坐标系
-  - task: ../../blocks/python_lib_96f1f6/block.oo.yaml
-    node_id: f1f6a5e8-f6e6-4dfd-bc3b-30fc4ac35c74
-    inputs_from:
-      - handle: rows
-        from_node:
-          - node_id: 9e8c1e3c-4ac1-494a-86b6-628daf53c461
-            output_handle: rows
-      - handle: width
-        cache:
-          initial_value: 1024
-      - handle: height
-        cache:
-          initial_value: 768
-      - handle: rate
-        cache:
-          initial_value: 1
-      - handle: 视野宽度（度）
-        cache:
-          initial_value: 160
-      - handle: 视野高度（度）
-        cache:
-          initial_value: 160
-      - handle: 宽度像素（长轴）
-        cache:
-          initial_value: 1024
-      - handle: isDegree
-        from_node:
-          - node_id: 9e8c1e3c-4ac1-494a-86b6-628daf53c461
-            output_handle: isDegree
-    title: 绘制图片
   - task: preview::image_preview
     node_id: e869e19b-3349-49ac-8bcf-6c009a82fc57
     inputs_from:
       - handle: file
         from_node:
-          - node_id: f1f6a5e8-f6e6-4dfd-bc3b-30fc4ac35c74
+          - node_id: e72ab98f-aa31-44bf-a815-dceb9b8f15f1
             output_handle: image
+  - task: ../../blocks/observer_coordinate_system/block.oo.yaml
+    node_id: f9cfa09b-619d-455e-bffa-7ffc48102020
+    inputs_from:
+      - handle: 赤经
+        value: 144
+      - handle: 赤纬
+        value: 30
+  - task: ../../blocks/to_2d_points/block.oo.yaml
+    node_id: bc27eeb4-2dc8-4a54-93e0-b22a146b227c
+    inputs_from:
+      - handle: rows
+        from_node:
+          - node_id: 860a29d9-c8ba-478b-8496-30329094aacd
+            output_handle: rows
+      - handle: x
+        from_node:
+          - node_id: f9cfa09b-619d-455e-bffa-7ffc48102020
+            output_handle: x
+      - handle: y
+        from_node:
+          - node_id: f9cfa09b-619d-455e-bffa-7ffc48102020
+            output_handle: y
+      - handle: z
+        from_node:
+          - node_id: f9cfa09b-619d-455e-bffa-7ffc48102020
+            output_handle: z
+      - handle: 模式
+        value: 球面投影
+  - task: ../../blocks/paint_stars/block.oo.yaml
+    node_id: e72ab98f-aa31-44bf-a815-dceb9b8f15f1
+    inputs_from:
+      - handle: 视野宽度（度）
+        value: 160
+      - handle: 视野高度（度）
+        value: 160
+      - handle: 宽度像素（长轴）
+        value: 1024
+      - handle: rows
+        from_node:
+          - node_id: bc27eeb4-2dc8-4a54-93e0-b22a146b227c
+            output_handle: rows
+      - handle: isDegree
+        from_node:
+          - node_id: bc27eeb4-2dc8-4a54-93e0-b22a146b227c
+            output_handle: isDegree
