@@ -3,7 +3,7 @@ title: 插入恒星中国名
 icon: https://static.oomol.com/icons/typescript.png
 options:
   mode: request
-  applet: ../../package/applets/javascript
+  applet: ../../applets/src.oo.yaml
   function: insertCnStarNames
 inputs_def:
   - handle: chinaName

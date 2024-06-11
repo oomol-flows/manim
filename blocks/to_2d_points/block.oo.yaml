@@ -3,7 +3,7 @@ title: 转化为顶视坐标
 icon: https://static.oomol.com/icons/typescript.png
 options:
   mode: request
-  applet: ../../package/applets/javascript
+  applet: ../../applets/src.oo.yaml
   function: to2DPoints
 inputs_def:
   - handle: rows
@@ -21,7 +21,7 @@ inputs_def:
             - array
           ui:widget: any
     value:
-        - ""
+      - ""
   - handle: 模式
     serialize:
       serializer: json

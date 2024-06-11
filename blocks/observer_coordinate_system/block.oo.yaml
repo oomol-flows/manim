@@ -3,7 +3,7 @@ title: 观察者坐标系
 icon: https://static.oomol.com/icons/typescript.png
 options:
   mode: request
-  applet: ../../package/applets/javascript
+  applet: ../../applets/src.oo.yaml
   function: getObserverCoordinateSystem
 inputs_def:
   - handle: 赤经

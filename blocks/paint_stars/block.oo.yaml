@@ -3,7 +3,7 @@ title: 绘制图片
 icon: https://static.oomol.com/icons/python.png
 options:
   mode: request
-  applet: ../../package/applets/python
+  applet: ../../applets/main.oo.yaml
   function: paint_image
 inputs_def:
   - handle: rows

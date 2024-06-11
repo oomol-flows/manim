@@ -2,4 +2,4 @@ lifecycle: session
 keepAlive: true
 executor:
   name: node_executor
-  entry: ../src/index.ts
+  entry: ../codes/src/index.ts

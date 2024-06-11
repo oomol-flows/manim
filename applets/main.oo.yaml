@@ -2,4 +2,4 @@ lifecycle: session
 keepAlive: true
 executor:
   name: python_executor
-  entry: ../main/__init__.py
+  entry: ../codes/main/__init__.py
