@@ -1,9 +1,9 @@
 type: task_block
 title: 转化为顶视坐标
 icon: https://static.oomol.com/icons/typescript.png
-options:
-  mode: request
-  applet: ../../applets/src.oo.yaml
+executor:
+  name: node_executor
+  entry: ../../codes/src/index.ts
   function: to2DPoints
 inputs_def:
   - handle: rows
