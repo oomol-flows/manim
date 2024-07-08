@@ -1,9 +1,9 @@
 type: task_block
 title: 绘制图片
 icon: https://static.oomol.com/icons/python.png
-options:
-  mode: request
-  applet: ../../applets/main.oo.yaml
+executor:
+  name: python_executor
+  entry: ../../codes/main/__init__.py
   function: paint_image
 inputs_def:
   - handle: rows
